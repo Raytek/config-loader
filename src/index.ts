@@ -7,8 +7,6 @@ interface Builder {
 }
 
 export class TheConfig {
-    private fileLoaded: any;
-
     public constructor(private filePath: string, private data: string) {
         this.filePath = filePath;
         this.data = data;
@@ -20,9 +18,13 @@ export class TheConfig {
         };
     }
 
-    // TODO: Implement JSON support
-    public retrieveData(): string | number {
-        this.fileLoaded = load(fs.readFileSync(this.filePath, 'utf-8'));
-        return get(this.fileLoaded, this.data)
+    public retrieveData(): any {
+        const fileLoaded: any = load(fs.readFileSync(this.filePath, 'utf-8'));
+        const value = get(fileLoaded, this.data);
+        if (value === undefined) {
+            throw new Error('Path not found!');
+        } else {
+            return value;
+        }
     }
 }

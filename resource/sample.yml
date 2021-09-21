@@ -11,5 +11,10 @@ status:
 application:
     client:
         port: 8084
+        online: false
     server:
         port: 7373
+        online: true
+list: [a, b, c]
+dict: {foo: bar}
+undefined_value: undefined
