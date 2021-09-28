@@ -3,28 +3,30 @@ import * as fs from 'fs';
 import { get } from 'ts-dot-prop';
 
 interface Builder {
-    andPath(data: string): TheConfig;
+  // eslint-disable-next-line no-unused-vars
+  andPath(data: string): TheConfig;
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export class TheConfig {
-    public constructor(private filePath: string, private data: string) {
-        this.filePath = filePath;
-        this.data = data;
-    }
+  public constructor(private filePath: string, private data: string) {
+    this.filePath = filePath;
+    this.data = data;
+  }
 
-    public static fromFile(filePath: string): Builder {
-        return {
-            andPath: (data: string): TheConfig => new TheConfig(filePath, data)
-        };
-    }
+  public static fromFile(filePath: string): Builder {
+    return {
+      andPath: (data: string): TheConfig => new TheConfig(filePath, data),
+    };
+  }
 
-    public retrieveData(): any {
-        const fileLoaded: any = load(fs.readFileSync(this.filePath, 'utf-8'));
-        const value = get(fileLoaded, this.data);
-        if (value === undefined) {
-            throw new Error('Path not found!');
-        } else {
-            return value;
-        }
+  public retrieveData(): any {
+    const fileLoaded: any = load(fs.readFileSync(this.filePath, 'utf-8'));
+    const value = get(fileLoaded, this.data);
+    if (value === undefined) {
+      throw new Error('Path not found!');
+    } else {
+      return value;
     }
+  }
 }
