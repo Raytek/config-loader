@@ -8,7 +8,7 @@ An easy way to handle config files
 
 or
 
-`yarn install sicolo`
+`yarn add sicolo`
 
 **How to use**
 
